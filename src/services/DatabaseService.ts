@@ -1,12 +1,9 @@
-import SQLite from 'react-native-sqlite-storage';
+import { open, DB } from '@op-engineering/op-sqlite';
 import { Project, Session } from '../types';
-
-SQLite.DEBUG(true);
-SQLite.enablePromise(true);
 
 export class DatabaseService {
   private static instance: DatabaseService;
-  private database: SQLite.SQLiteDatabase | null = null;
+  private database: DB | null = null;
 
   private constructor() {}
 
@@ -19,9 +16,8 @@ export class DatabaseService {
 
   async initialize(): Promise<void> {
     try {
-      this.database = await SQLite.openDatabase({
+      this.database = open({
         name: 'crystal.db',
-        location: 'default',
       });
       await this.createTables();
     } catch (error) {
@@ -75,7 +71,7 @@ export class DatabaseService {
     ];
 
     for (const query of queries) {
-      await this.database.executeSql(query);
+      await this.database.execute(query);
     }
   }
 
@@ -83,21 +79,17 @@ export class DatabaseService {
   async getAllProjects(): Promise<Project[]> {
     if (!this.database) throw new Error('Database not initialized');
     
-    const [results] = await this.database.executeSql(
+    const results = await this.database.execute(
       'SELECT * FROM projects ORDER BY display_order, created_at DESC'
     );
     
-    const projects: Project[] = [];
-    for (let i = 0; i < results.rows.length; i++) {
-      projects.push(results.rows.item(i));
-    }
-    return projects;
+    return results.rows._array || [];
   }
 
   async createProject(project: Partial<Project>): Promise<number> {
     if (!this.database) throw new Error('Database not initialized');
     
-    const [result] = await this.database.executeSql(
+    const result = await this.database.execute(
       `INSERT INTO projects (name, path, system_prompt, run_script, build_script, active)
        VALUES (?, ?, ?, ?, ?, ?)`,
       [
@@ -110,20 +102,20 @@ export class DatabaseService {
       ]
     );
     
-    return result.insertId;
+    return result.insertId || 0;
   }
 
   // Session methods
   async getAllSessions(): Promise<Session[]> {
     if (!this.database) throw new Error('Database not initialized');
     
-    const [results] = await this.database.executeSql(
+    const results = await this.database.execute(
       'SELECT * FROM sessions ORDER BY created_at DESC'
     );
     
     const sessions: Session[] = [];
-    for (let i = 0; i < results.rows.length; i++) {
-      const row = results.rows.item(i);
+    const rows = results.rows._array || [];
+    for (const row of rows) {
       sessions.push({
         ...row,
         output: JSON.parse(row.output || '[]'),
@@ -140,7 +132,7 @@ export class DatabaseService {
     if (!this.database) throw new Error('Database not initialized');
     
     const id = `session_${Date.now()}`;
-    await this.database.executeSql(
+    await this.database.execute(
       `INSERT INTO sessions (id, name, worktree_path, prompt, status, output, json_messages)
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [
