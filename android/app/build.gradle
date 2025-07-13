@@ -115,8 +115,7 @@ dependencies {
     implementation 'org.eclipse.jgit:org.eclipse.jgit:6.4.0.202211300538-r'
     implementation 'org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:6.4.0.202211300538-r'
     
-    // SQLite for database operations
-    implementation 'com.github.andpor:react-native-sqlite-storage:6.0.1'
+
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
