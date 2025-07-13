@@ -12,15 +12,12 @@
   "dependencies": {
     "react": "19.1.0",
     "react-native": "0.80.1",
-    "@react-native/new-app-screen": "0.80.1",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/stack": "^6.4.1",
     "react-native-screens": "^3.34.0",
     "react-native-safe-area-context": "^4.11.0",
     "react-native-gesture-handler": "^2.20.2",
-    "react-native-elements": "^3.4.3",
-    "react-native-vector-icons": "^10.2.0",
     "react-native-sqlite-storage": "^6.0.1",
     "zustand": "^5.0.0",
     "react-native-fs": "^2.20.0"
@@ -43,7 +40,7 @@
     "jest": "^29.6.3",
     "prettier": "2.8.8",
     "react-test-renderer": "19.1.0",
-    "typescript": "5.0.4"
+    "typescript": "5.2.2"
   },
   "engines": {
     "node": ">=18"
