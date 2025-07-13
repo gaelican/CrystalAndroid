@@ -28,7 +28,7 @@ jobs:
         cache: 'npm'
 
     - name: Install dependencies
-      run: npm ci
+      run: npm install
 
     - name: Cache Gradle Wrapper
       uses: actions/cache@v3
