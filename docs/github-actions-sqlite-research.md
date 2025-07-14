@@ -137,3 +137,18 @@ Would require:
 ## Conclusion
 
 The react-native-sqlite-storage library is incompatible with React Native 0.80's build system. The most reliable solution is to migrate to op-sqlite, which is actively maintained and designed for modern React Native.
+
+## Update: op-sqlite Also Has Issues
+
+After implementing op-sqlite, we encountered Kotlin compilation errors. Research shows:
+- React Native 0.80 has widespread issues with native modules
+- Many libraries face "package does not exist" errors
+- Kotlin compilation failures are common due to RN 0.80 changes
+
+## Alternative Approach
+
+Given the persistent issues with SQLite libraries in React Native 0.80, consider:
+1. Using AsyncStorage for simple key-value storage
+2. Using the filesystem with react-native-fs (already installed)
+3. Downgrading to React Native 0.79.x where SQLite libraries work
+4. Waiting for library updates that fully support RN 0.80

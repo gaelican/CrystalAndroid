@@ -47,6 +47,14 @@ export const HomeScreen: React.FC = () => {
               <Text style={styles.actionButtonText}>Git Test</Text>
             </TouchableOpacity>
           </View>
+          <View style={styles.actionButtons}>
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={() => navigation.navigate('DatabaseTest' as never)}
+            >
+              <Text style={styles.actionButtonText}>Database Test</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         <View style={styles.section}>
@@ -121,6 +129,7 @@ const styles = StyleSheet.create({
   actionButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 10,
   },
   actionButton: {
     flex: 1,

@@ -49,7 +49,7 @@ This document summarizes the work done to port the Crystal desktop application t
   - Navigation: @react-navigation/native
   - UI: react-native-elements
   - State: zustand
-  - Storage: react-native-sqlite-storage
+  - Storage: react-native-fs (JSON-based storage)
   - File System: react-native-fs
 
 ## Key Architecture Decisions
@@ -85,7 +85,7 @@ The application has:
 4. **UI Components**: Port remaining Crystal UI components
 
 ### Medium Priority
-1. **Database**: Implement SQLite for project/session storage
+1. **Database**: ✅ Implemented JSON-based storage for project/session data
 2. **File Management**: Add file browser and editor
 3. **Settings**: Add configuration screens
 4. **Sync**: Implement data synchronization
